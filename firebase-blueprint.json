@@ -1,0 +1,54 @@
+{
+  "entities": {
+    "user": {
+      "title": "User",
+      "description": "User profile data",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "email": { "type": "string", "format": "email" }
+      },
+      "required": ["userId", "email"]
+    },
+    "company": {
+        "title": "Company",
+        "description": "User company profile",
+        "type": "object",
+        "properties": {
+            "userId": { "type": "string" },
+            "name": { "type": "string" },
+            "logoUrl": { "type": "string" },
+            "charterUrl": { "type": "string" },
+            "signatureUrl": { "type": "string" }
+        },
+        "required": ["userId", "name"]
+    },
+    "receipt": {
+        "title": "Receipt",
+        "description": "User invoice/receipt",
+        "type": "object",
+        "properties": {
+            "userId": { "type": "string" },
+            "companyId": { "type": "string" },
+            "customerName": { "type": "string" },
+            "total": { "type": "number" },
+            "status": { "type": "string", "enum": ["pending", "paid", "cancelled"] }
+        },
+        "required": ["userId", "companyId", "customerName", "total", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "user",
+      "description": "User profiles"
+    },
+    "/companies/{companyId}": {
+      "schema": "company",
+      "description": "Companies per user"
+    },
+    "/receipts/{receiptId}": {
+      "schema": "receipt",
+      "description": "Receipts created by user"
+    }
+  }
+}
